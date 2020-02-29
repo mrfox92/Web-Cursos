@@ -10929,6 +10929,16 @@ header .navbar-laravel .navbar-brand {
   color: #fff;
 }
 
+.btn-google {
+  background-color: #EF403B;
+  color: #fff;
+}
+
+.btn-google:hover {
+  background-color: #ff4842;
+  color: #fff;
+}
+
 .btn-more-info-course {
   background-color: #F3AF59;
   color: #fff;
