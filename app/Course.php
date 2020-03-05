@@ -10,6 +10,10 @@ class Course extends Model
     const PENDING = 2;
     const REJECTED = 3;
 
+    //  reconstruimos la ruta de las imagenes
+    public function pathAttachment () {
+        return "images/courses/" . $this->picture;
+    }
 
     //  un curso solo puede tener una categoria - relación uno a uno
     public function category () {
@@ -48,5 +52,15 @@ class Course extends Model
 
     public function teacher () {
         return $this->belongsTo(Teacher::class);
+    }
+
+    // Los métodos de los modelos de Eloquent que inician con get y 
+    // finalizan con Attribute son automáticamente reconocidos y pasan
+    // a ser datos del mismo modelo en la obtención.
+    
+    //  retornamos el promedio de las valoraciones de los cursos
+
+    public function getCustomRatingAttribute() {
+        return $this->reviews->avg('rating');
     }
 }

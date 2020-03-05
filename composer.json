@@ -16,6 +16,7 @@
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",
+        "nesbot/carbon": "^2.31",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

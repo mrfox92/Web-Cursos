@@ -1,5 +1,5 @@
 <div class="col-md-4">
-    <div class="card">
+    <div class="card animated fadeIn">
         <div class="card-header">{{ __("Socialite") }}</div>
         <div class="card-body">
             <a class="btn btn-github btn-lg btn-block" href="{{ route('social_auth', ['driver' => 'github']) }}">

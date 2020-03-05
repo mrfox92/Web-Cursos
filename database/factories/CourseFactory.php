@@ -18,6 +18,7 @@ $factory->define(Course::class, function (Faker $faker) {
         'slug'              =>  Str::slug($name, '-'),
         'description'       =>  $faker->paragraph,
         'picture'           =>  \Faker\Provider\Image::image(storage_path() . '/app/public/courses', 600, 350, 'tech', false),
+        'status'            =>  $status,
         'previous_approved' =>  $status !== \App\Course::PUBLISHED ? false : true,
         'previous_rejected' =>  $status === \App\Course::REJECTED ? true : false
 

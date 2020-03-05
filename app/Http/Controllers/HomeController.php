@@ -6,15 +6,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+
 
     /**
      * Show the application dashboard.
@@ -23,6 +16,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $courses = \App\Course::withCount(['students']) //  realizamos el conteo de los estudiantes del Modelo Course a traves del metodo students
+            ->with('category', 'teacher', 'reviews')    //  traemos la categoria, el profesor y las reviews relacionadas a partir de los metodos del modelo Course
+            ->where('status', \App\Course::PUBLISHED)   //  Seleccionamos el estado
+            ->latest()  //  traemos ordenados desde el mas reciente
+            ->paginate(12); //  paginamos los resultados de 12 en 12
+        return view('home', compact('courses'));
     }
 }

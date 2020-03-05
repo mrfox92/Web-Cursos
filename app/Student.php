@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
+
+    protected $fillable = ['user_id', 'title'];
     
     //  un estudiante puede estar inscrito en uno o muchos cursos y un curso puede tener uno o muchos estudiantes
     //  para este tipo de relaciones se establecen las relaciones en los dos modelos para que funcione

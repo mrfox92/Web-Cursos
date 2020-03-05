@@ -28,11 +28,11 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('role_id')->default(\App\Role::STUDENT);
             $table->foreign('role_id')->references('id')->on('roles');
             $table->string('name');
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('slug');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->string('picture')->nullable();
 
             //  Cashier columns son agregadas  automáticamente
@@ -71,6 +71,8 @@ class CreateUsersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('provider'); //  nombre red social con la que nos logueamos
             $table->string('provider_uid'); //  nuestro id de la red con la que nos identificamos
+
+            $table->timestamps();
 
         });
     }

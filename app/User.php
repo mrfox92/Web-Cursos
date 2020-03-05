@@ -5,10 +5,22 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+    protected static function boot () {
+        parent::boot();
+        static::creating( function( User $user) {
+            //  si estamos añadiendo datos desde la consola
+            if ( !\App::runningInConsole() ) {
+                $user_slug = $user->name . " " . $user->last_name; 
+                $user->slug = Str::slug($user_slug, '-');
+            }
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -28,6 +40,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //  comprobamos si el usuario esta autenticado y cual archivo de navegacion deberá ser cargado segun el role del usuario
+    public static function navigation () {
+
+        return auth()->check() ? auth()->user()->role->name : 'guest';
+    }
 
     /**
      * The attributes that should be cast to native types.
