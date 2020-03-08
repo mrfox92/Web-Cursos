@@ -22,7 +22,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+//  definimos un grupo de rutas para courses
+Route::group(['prefix' => 'courses'], function() {
+    Route::get('/{course}', 'CourseController@show')->name('courses.detail');
+});
+
+
 
 //  construimos la ruta para acceder a las imagenes utilizando Intervention
 Route::get('/images/{path}/{attachment}', function ($path, $attachment) {

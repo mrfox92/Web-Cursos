@@ -10,9 +10,17 @@ class Course extends Model
     const PENDING = 2;
     const REJECTED = 3;
 
+    //  realizamos el conteo de las reviews y students de un curso
+    protected $withCount = ['reviews', 'students'];
+
     //  reconstruimos la ruta de las imagenes
     public function pathAttachment () {
-        return "images/courses/" . $this->picture;
+        return "/images/courses/" . $this->picture;
+    }
+
+    //  retornamos la llave desde la cual queremos devolver el registro de un curso
+    public function getRouteKeyName() {
+        return 'slug';
     }
 
     //  un curso solo puede tener una categoria - relación uno a uno
@@ -58,9 +66,19 @@ class Course extends Model
     // finalizan con Attribute son automáticamente reconocidos y pasan
     // a ser datos del mismo modelo en la obtención.
     
-    //  retornamos el promedio de las valoraciones de los cursos
+    //  Retornamos el promedio de las valoraciones de los cursos
 
     public function getCustomRatingAttribute() {
         return $this->reviews->avg('rating');
+    }
+
+    //  Devolvemos los cursos relacionados que tengan la misma categoria que la del curso que accesa el metodo. 
+    //  Y además el id del curso sea distinto del que accesa al metodo
+    public function relatedCourses () {
+        return Course::with('reviews')->whereCategoryId($this->category->id)
+            ->where('id', '!=', $this->id)
+            ->latest()
+            ->limit(6)
+            ->get();
     }
 }
