@@ -12,7 +12,7 @@
         "caouecs/laravel-lang": "~4.0",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
-        "laravel/cashier": "^10.6",
+        "laravel/cashier": "~9.0",
         "laravel/framework": "^6.2",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "^2.0",

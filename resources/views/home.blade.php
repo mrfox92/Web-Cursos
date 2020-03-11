@@ -3,8 +3,7 @@
 @section('jumbotron')
     @include('partials.jumbotron', [
         "title" =>  __("Accede a los mejores cursos y comienza una carrera hoy mismo."),
-        "icon"  =>  "th",
-        "animation" =>  "animated fadeIn"        
+        "icon"  =>  "th"
     ]);
 @endsection
 

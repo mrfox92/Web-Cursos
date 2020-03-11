@@ -24,10 +24,18 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-//  definimos un grupo de rutas para courses
+//  definimos un grupo de rutas con prefijo para courses
 Route::group(['prefix' => 'courses'], function() {
     Route::get('/{course}', 'CourseController@show')->name('courses.detail');
 });
+
+//  definomos un grupo de rutas con prefijo para subscriptions
+Route::group(['prefix' => 'subscriptions'], function() {
+    Route::get('/plans', 'SubscriptionController@plans')->name('subscriptions.plans');
+    Route::get('/admin', 'SubscriptionController@admin')->name('subscriptions.admin');
+    Route::post('/process_subscription', 'SubscriptionController@processSubscription')->name('subscriptions.process_subscription');
+});
+
 
 
 

@@ -6,7 +6,7 @@
             {{--  Puede optar por un curso  --}}
             @can('subscribe', \App\Course::class)
                 {{--  Se puede suscribir porque no tiene un plan contratado  --}}
-                <a href="#" class="btn btn-subscribe btn-bottom btn-block">
+                <a href="{{ route('subscriptions.plans') }}" class="btn btn-subscribe btn-bottom btn-block">
                     <i class="fa fa-bolt"></i> {{ __("Suscribirme") }}
                 </a>
             @else
