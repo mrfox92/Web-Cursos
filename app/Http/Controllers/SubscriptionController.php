@@ -64,8 +64,41 @@ class SubscriptionController extends Controller
         }
     }
 
+    //  listar suscripciones de un usuario
 
     public function admin () {
-        return view('subscriptions.admin');
+        $subscriptions = auth()->user()->subscriptions;
+        // dd( $subscriptions );
+        return view('subscriptions.admin', compact('subscriptions'));
+    }
+
+    public function resume ( Request $request ) {
+        //  obtenemos la data del plan del usuario
+        $subscription = $request->user()->subscription( $request->get('plan') );
+        // dd( $subscription );
+        //  si la suscripcion esta cancelada y en periodo de gracia, podremos reanudar la suscripcion
+        if ( $subscription->cancelled() || $subscription->onGracePeriod() ) {
+            $request->user()->subscription( $request->get('plan') )->resume();
+
+            return back()->with('message', [
+                'class'     =>  'success',
+                'message'   =>  __("Has reanudado tu suscripción correctamente")
+            ]);
+        }
+
+        //  caso contrario retornamos a la página anterior
+        return back();
+    }
+
+    public function cancel ( Request $request ) {
+
+        // auth()->user()->subscription( $request->get('plan') )->cancel();
+        $request->user()->subscription( $request->get('plan') )->cancel();
+
+        return back()->with('message', [
+            'class'     =>  'success',
+            'message'   =>  __("La suscripción ha sido cancelada con éxito")
+        ]);
+        
     }
 }

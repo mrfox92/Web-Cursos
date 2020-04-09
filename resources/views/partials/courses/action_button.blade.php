@@ -13,7 +13,7 @@
                 {{--  No se puede suscribir, ya que tiene un plan contratado o es usuario administrador  --}}
                 @can('inscribe', $course)
                     {{--  Puede apuntarse al curso  --}}
-                    <a href="#" class="btn btn-subscribe btn-bottom btn-block">
+                    <a href="{{ route('courses.inscribe', ['course' => $course->slug]) }}" class="btn btn-subscribe btn-bottom btn-block">
                         <i class="fa fa-bolt"></i> {{ __("Inscribirme") }}
                     </a>
                 @else

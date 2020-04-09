@@ -31,4 +31,9 @@ class CoursePolicy
         return ! $course->students->contains($user->student->id);
     }
 
+    //  comprobamos si el usuario puede añadir una revisión
+    public function review (User $user, Course $course) {
+        return ! $course->reviews->contains('user_id', $user->id);
+    }
+
 }

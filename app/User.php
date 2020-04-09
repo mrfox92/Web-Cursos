@@ -43,6 +43,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function pathAttachment () {
+        return '/images/users/' . $this->picture;
+    }
+
     //  comprobamos si el usuario esta autenticado y cual archivo de navegacion deberá ser cargado segun el role del usuario
     public static function navigation () {
 
